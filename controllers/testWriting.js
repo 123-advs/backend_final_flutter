@@ -34,8 +34,18 @@ const getWritingsByTopic = asyncHandler(async (req, res) => {
     });
 });
 
+const getTestWritingByUser = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+    const testWriting = await TestWriting.find({ user: userId });
+    return res.status(200).json({
+        success: testWriting ? true : false,
+        testWriting: testWriting ? testWriting : 'Cannot get Test Writing'
+    });
+});
+
 
 module.exports = {
     createTestWriting,
-    getWritingsByTopic
+    getWritingsByTopic,
+    getTestWritingByUser
 };

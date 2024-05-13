@@ -41,11 +41,14 @@ const updateFlashCardByTopic = asyncHandler(async (req, res) => {
     return res.status(200).json({ success: true, updatedFlashCard });
 });
 
-const getAllFlashCard = asyncHandler(async (req, res) => {
-    const flashCard = await FlashCard.find();
+const getFlashCardByUser = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+
+    const flashCard = await FlashCard.find({ user: userId });
+
     return res.status(200).json({
-        success: flashCard ? true : false,
-        allFlashCard: flashCard ? flashCard : 'Cannot get all Flash Card'
+        success: true,
+        flashCards: flashCard,
     });
 });
 
@@ -53,5 +56,5 @@ module.exports = {
     createFlashCard,
     getFlashCardByTopic,
     updateFlashCardByTopic,
-    getAllFlashCard
+    getFlashCardByUser
 };

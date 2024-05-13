@@ -34,7 +34,17 @@ const getChoicesByTopic = asyncHandler(async (req, res) => {
     });
 });
 
+const getTestChoiceByUser = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+    const testChoice = await TestChoice.find({ user: userId });
+    return res.status(200).json({
+        success: testChoice ? true : false,
+        testChoice: testChoice ? testChoice : 'Cannot get Test Choice'
+    });
+});
+
 module.exports = {
     createTestChoice,
     getChoicesByTopic,
+    getTestChoiceByUser
 };
